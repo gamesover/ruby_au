@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -29,9 +29,11 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.18.1
+          node-version: 20
           cache: "yarn"
       - name: Install Yarn dependencies
+        env:
+          NODE_OPTIONS: "--openssl-legacy-provider"
         run: |
           yarn install
           bundle exec rails webpacker:compile
